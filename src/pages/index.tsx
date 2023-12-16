@@ -38,14 +38,15 @@ const ProblemPage = () => {
 
   const handlePrint = useReactToPrint({
     content: () => ref.current,
+    pageStyle: `* { background: white }`
   });
 
   return (
     <RootLayout>
       <MathButtons />
-      <div className={s.problemPage} ref={(el) => (ref.current = el)}>
+      <div className={s.problemPage}>
         <h1>Mattetal</h1>
-        <div className={s.wrapper}>
+        <div className={s.wrapper} ref={(el) => (ref.current = el)}>
           {problems.map((problem) => (
             <MathProblem {...problem} />
           ))}
