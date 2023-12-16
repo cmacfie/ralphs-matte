@@ -44,7 +44,7 @@ const ProblemPage = () => {
     <RootLayout>
       <MathButtons />
       <div className={s.problemPage} ref={(el) => (ref.current = el)}>
-        <h1>Matteproblem</h1>
+        <h1>Mattetal</h1>
         <div className={s.wrapper}>
           {problems.map((problem) => (
             <MathProblem {...problem} />

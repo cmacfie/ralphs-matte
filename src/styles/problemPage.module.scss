@@ -2,6 +2,7 @@
 .problemPage {
   display: flex;
   flex-flow: column nowrap;
+  align-items: center;
   gap: 8px;
   background: $background;
   border-radius: 16px;
