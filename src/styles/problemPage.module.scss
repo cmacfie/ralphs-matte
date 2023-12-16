@@ -1,0 +1,24 @@
+@import "./variables.module";
+.problemPage {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 8px;
+  background: $background;
+  border-radius: 16px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  padding: 16px;
+  overflow: hidden;
+  .wrapper {
+    overflow: auto;
+    display: flex;
+    flex-flow: row wrap;
+  }
+}
+.bottomRow {
+  display: flex;
+  flex-flow: row nowrap;
+  gap: 16px;
+  .grow {
+    flex: 1;
+  }
+}

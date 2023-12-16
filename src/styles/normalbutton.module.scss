@@ -1,0 +1,11 @@
+@import "./variables.module";
+.button {
+  outline: none;
+  border: none;
+  padding: 16px 20px;
+  border-radius: 5px;
+  background: $secondary;
+  font-size: 20px;
+  font-weight: bold;
+  color: $light;
+}

@@ -1,0 +1,32 @@
+@import "./variables.module";
+$_size: 60;
+$s1: #{$_size * 0.1}px;
+$s2: #{$_size * 0.15}px;
+$size: #{$_size}px;
+$borderSize: #{$_size / 10}px;
+$fontSize: #{$_size/ 2}px;
+.toggleButton {
+  width: $size;
+  height: $size;
+  aspect-ratio: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 250ms ease;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 1);
+  border: $borderSize solid $light;
+  box-shadow:
+    #{-$s1} #{-$s1} $s2 rgba(255, 255, 255, 0.5),
+    $s1 $s1 $s2 rgba(70, 70, 70, 0.12);
+  font-size: $fontSize;
+  line-height: $fontSize;
+  &.toggled {
+    color: $primary;
+    box-shadow:
+      #{-$s1} #{-$s1} $s2 rgba(255, 255, 255, 0.5),
+      $s1 $s1 $s2 rgba(70, 70, 70, 0.12),
+      inset #{-$s1} #{-$s1} $s2 rgba(255, 255, 255, 0.5),
+      inset $s1 $s1 $s2 rgba(70, 70, 70, 0.12);
+  }
+}

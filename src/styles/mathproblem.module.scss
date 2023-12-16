@@ -1,0 +1,10 @@
+.mathProblem {
+  font-size: 60px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  max-width: 400px;
+  flex: 1 1 400px;
+  span {
+  }
+}
