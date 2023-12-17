@@ -8,6 +8,8 @@ export enum Icons {
   MULTIPLICATION = "MULTIPLICATION",
   DIVISION = "DIVISION",
   PRINT = "PRINT",
+  SETTINGS = "SETTINGS",
+  RELOAD = "RELOAD"
 }
 const Icon = ({ icon }: { icon: Icons }) => {
   const { IconToIconName } = useTypeConverter();

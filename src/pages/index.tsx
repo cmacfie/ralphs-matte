@@ -8,19 +8,23 @@ import RootLayout from "@/app/layout";
 import MathButtons from "@/components/MathButtons";
 import NormalButton from "@/components/NormalButton";
 import Icon, { Icons } from "@/components/Icon";
-import printJS from "print-js";
-import ReactToPrint, { useReactToPrint } from "react-to-print";
+import { useReactToPrint } from "react-to-print";
+import classNames from "classnames";
+import useSettings, { ISettings } from "@/hooks/use-settings";
+import { useRouter } from "next/router";
 
 const ProblemPage = () => {
+  const router = useRouter();
   const searchParams = useSearchParams();
   const ref = useRef<HTMLDivElement | null>(null);
   const typeParams = searchParams?.get("t") ?? "";
   const [problems, setProblems] = useState<IMathProblem[]>([]);
+  const { getSettings } = useSettings();
+  const [settings, setSettings] = useState<ISettings>(getSettings());
 
-  const { generateArray, toProblemTypes } = useMathGenerator(
-    { min: 1, max: 50 },
-    { min: 1, max: 10 },
-  );
+  useEffect(() => {}, []);
+
+  const { generateArray, toProblemTypes } = useMathGenerator(settings);
   const types = useMemo(() => {
     if (!typeParams) {
       return [];
@@ -33,19 +37,19 @@ const ProblemPage = () => {
   }, []);
 
   const generateProblems = () => {
-    setProblems(generateArray(types, 20));
+    setProblems(generateArray(types, settings?.numberOfProblems ?? 20));
   };
 
   const handlePrint = useReactToPrint({
     content: () => ref.current,
-    pageStyle: `* { background: white }`
+    pageStyle: `* { background: white; font-family: "Chalk" }`,
   });
 
   return (
     <RootLayout>
       <MathButtons />
       <div className={s.problemPage}>
-        <h1>Mattetal</h1>
+        <h1 className={s.header}>Mattetal</h1>
         <div className={s.wrapper} ref={(el) => (ref.current = el)}>
           {problems.map((problem) => (
             <MathProblem {...problem} />
@@ -53,8 +57,15 @@ const ProblemPage = () => {
         </div>
       </div>
       <div className={s.bottomRow}>
-        <NormalButton className={s.grow} onClick={generateProblems}>
-          Generara
+        <NormalButton onClick={() => router.push("/settings")}>
+          <Icon icon={Icons.SETTINGS} />
+        </NormalButton>
+        <NormalButton
+          className={classNames(s.grow)}
+          color={"primary"}
+          onClick={generateProblems}
+        >
+          <Icon icon={Icons.RELOAD} />
         </NormalButton>
         <NormalButton onClick={handlePrint}>
           <Icon icon={Icons.PRINT} />

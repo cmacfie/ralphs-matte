@@ -24,6 +24,9 @@
   display: flex;
   flex-flow: row nowrap;
 }
+.grow {
+  flex: 1;
+}
 .gap {
   &8 {
     gap: 8px;

@@ -4,7 +4,6 @@ import RootLayout from "@/app/layout";
 import { AppProps } from "next/app";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import {
-  faB,
   faDivide,
   faMinus,
   faPlus,

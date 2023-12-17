@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import classNames from "classnames";
 import "./globals.scss";
+import localFont from "next/dist/compiled/@next/font/dist/local";
 
 const poppins = Poppins({ weight: "400", subsets: ["latin"] });
 

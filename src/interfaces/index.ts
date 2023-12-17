@@ -14,5 +14,6 @@ export enum ProblemType {
 export interface IMathProblem {
     number1: number;
     number2: number;
+    answer: number;
     type: ProblemType
 }

@@ -7,22 +7,23 @@ const MathProblem = (problem: IMathProblem) => {
   const Symbol = useMemo(() => {
     switch (problem.type) {
       case ProblemType.ADDITION:
-        return <Icon icon={Icons.ADDITION} />;
+        return "+";
       case ProblemType.SUBTRACTION:
-        return <Icon icon={Icons.SUBTRACTION} />;
+        return "−";
       case ProblemType.MULTIPLICATION:
-        return <Icon icon={Icons.MULTIPLICATION} />;
+        return "×";
       case ProblemType.DIVISION:
-        return <Icon icon={Icons.DIVISION} />;
+        return "÷";
     }
   }, [problem]);
 
   return (
     <div className={s.mathProblem}>
       <span>{problem.number1}</span>
-        <span>{Symbol}</span>
-        <span>{problem.number2}</span>
+      <span>{Symbol}</span>
+      <span>{problem.number2}</span>
       <span>=</span>
+      <span></span>
     </div>
   );
 };

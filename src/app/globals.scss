@@ -1,4 +1,8 @@
 @import "@/styles/variables.module.scss";
+@font-face {
+  font-family: 'Chalk';
+  src: url('/NiceChalk.otf');
+}
 body {
   background-color: $background;
   margin: 0;
@@ -16,5 +20,9 @@ body {
   }
 }
 h1 {
+  margin: 0;
+}
+h2 {
+  font-size: 32px;
   margin: 0;
 }

@@ -1,11 +1,12 @@
 import random from "random";
 import { IMathProblem, MinMax, ProblemType } from "@/interfaces";
 import useTypeConverter from "@/hooks/use-type-converter";
+import { ISettings } from "@/hooks/use-settings";
 
-const useMathGenerator = (
-  additionRange: MinMax,
-  multiplicationRange: MinMax,
-) => {
+const useMathGenerator = ({
+  multiplicationRange,
+  additionRange,
+}: ISettings) => {
   const { StringToMathProblemType } = useTypeConverter();
 
   const toProblemTypes = (problems: string[]) => {
@@ -18,14 +19,28 @@ const useMathGenerator = (
     return random.int(minMax.min, minMax.max);
   };
 
+  const _calcAnswer = (number1: number, number2: number, type: ProblemType) => {
+    switch (type) {
+      case ProblemType.ADDITION:
+        return number1 + number2;
+      case ProblemType.SUBTRACTION:
+        return number1 - number2;
+      case ProblemType.MULTIPLICATION:
+        return number1 * number2;
+      case ProblemType.DIVISION:
+        return number1 / number2;
+    }
+  };
+
   const _createProblem = (type: ProblemType): IMathProblem => {
     if (type === ProblemType.DIVISION) {
-      const divisionNumber = getNumberInRange(type);
+      const answer = getNumberInRange(type);
       const smallNumber = random.int(2, 3);
       return {
-        number1: divisionNumber * smallNumber,
+        number1: answer * smallNumber,
         number2: smallNumber,
         type: ProblemType.DIVISION,
+        answer: answer,
       };
     }
 
@@ -39,9 +54,11 @@ const useMathGenerator = (
         number1 = temp;
       }
     }
+    const answer = _calcAnswer(number1, number2, type);
     return {
       number1,
       number2,
+      answer,
       type,
     };
   };

@@ -1,19 +1,27 @@
-@import "./variables.module";
+@import "./variables.module.scss";
 .problemPage {
   display: flex;
   flex-flow: column nowrap;
   align-items: center;
   gap: 8px;
-  background: $background;
+  background-color: $dark;
+  background-image: url("/blackboard.png");
+  background-repeat:  no-repeat;
+  background-size: cover;
   border-radius: 16px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 6px -1px, rgba(0, 0, 0, 0.06) 0px 2px 4px -1px;
+  border: 10px solid $primary;
+  color: $light;
   padding: 16px;
   overflow: hidden;
+  box-shadow: $bs;
   .wrapper {
     overflow: auto;
     display: flex;
     flex-flow: row wrap;
     justify-content: center;
+  }
+  * {
+    font-family: 'Chalk';
   }
 }
 .bottomRow {
@@ -23,4 +31,10 @@
   .grow {
     flex: 1;
   }
+}
+.primary {
+  background: $primary;
+}
+.secondary {
+  background: $secondary;
 }

@@ -1,12 +1,13 @@
 import { ProblemType } from "@/interfaces";
 import {
+  faArrowsRotate,
   faDivide,
   faMinus,
   faPlus,
   faPrint,
+  faSliders,
   faXmark,
   IconDefinition,
-  IconName,
 } from "@fortawesome/free-solid-svg-icons";
 import { Icons } from "@/components/Icon";
 import { ToggledMathTypes } from "@/components/MathButtons";
@@ -24,6 +25,10 @@ const useTypeConverter = () => {
         return faPrint;
       case Icons.ADDITION:
         return faPlus;
+      case Icons.SETTINGS:
+        return faSliders;
+      case Icons.RELOAD:
+        return faArrowsRotate;
     }
   };
 

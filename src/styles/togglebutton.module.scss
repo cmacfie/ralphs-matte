@@ -21,6 +21,19 @@ $fontSize: #{$_size/ 2}px;
     $s1 $s1 $s2 rgba(70, 70, 70, 0.12);
   font-size: $fontSize;
   line-height: $fontSize;
+  position: relative;
+  &::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    box-shadow: 0 0 10px 15px #fff;
+    border-radius: 50%;
+    background: green;
+  }
   &.toggled {
     color: $primary;
     box-shadow:

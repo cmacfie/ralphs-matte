@@ -1,0 +1,46 @@
+@import "./variables.module";
+.settingsPage {
+  padding: 16px;
+  display: flex;
+  flex-flow: column nowrap;
+  gap: 40px;
+  background: url("/blackboard.png") no-repeat;
+  background-size: cover;
+  border-radius: 10px;
+  box-shadow: $bs;
+  outline: 10px solid $primary;
+  margin: 16px;
+  color: $light;
+  &, *:not(button) {
+    font-family: "Chalk";
+  }
+  .inputs {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: 40px;
+    .inputColumn {
+      display: flex;
+      flex-flow: column nowrap;
+      gap: 16px;
+      .header {
+        white-space: nowrap;
+        font-size: 28px;
+        text-align: center;
+      }
+      .inputRow {
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-around;
+        gap: 16px;
+        .inputAndLabelWrapper {
+          font-size: 24px;
+          display: flex;
+          flex-flow: column nowrap;
+          align-items: center;
+          justify-content: flex-start;
+          gap: 8px;
+        }
+      }
+    }
+  }
+}
