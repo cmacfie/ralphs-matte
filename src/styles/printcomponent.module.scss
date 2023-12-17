@@ -1,17 +1,16 @@
 .printComponent {
-  width: 210mm;
+  //width: 210mm;
   visibility: hidden;
+  top: 0;
+  left: 0;
   position: fixed;
-  //overflow: auto;
+  //overflow-y: auto;
+  overflow: auto;
   font-family: "Chalk";
   background: white;
   display: block;
   .page {
-    //margin-top: 20px;
-    width: 210mm;
-    height: 297mm;
     display: block;
-    //padding-bottom: 100mm;
   }
   .header {
     padding-top: 40px;
@@ -19,7 +18,6 @@
   }
   .outerInner {
     display: block;
-    height: 297mm;
     width: 210mm;
     .problems {
       column-count: 2;
@@ -32,18 +30,12 @@
   }
   .answersOuter {
     display: block;
-    padding-top: 297mm;
     height: 297mm;
-    position: fixed;
     bottom: 0;
     .answers {
-      //height: 297mm;
-      //width: 210mm;
-      position: absolute;
-      top: 0;
-      left: 0;
       height: 100%;
       width: 100%;
+      transform: rotate(180deg);
       .answer {
         display: flex;
         float: left;
