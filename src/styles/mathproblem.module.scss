@@ -1,3 +1,4 @@
+@import "./variables.module";
 .mathProblem {
   font-size: 60px;
   display: grid;
@@ -5,8 +6,8 @@
   align-items: center;
   justify-content: center;
   gap: 16px;
-  max-width: 400px;
-  flex: 1 1 400px;
+  //max-width: 400px;
+  //flex: 1 1 400px;
   & > span {
     font-size: 30px;
     font-family: "Chalk";
@@ -14,17 +15,21 @@
 }
 .index {
   font-family: "Chalk";
-  background: white;
   border-radius: 50%;
   width: 30px;
   height: 30px;
-  font-size: 20px;
-  line-height: 20px;
-  color: black;
-  border: 1px solid black;
+  font-size: 16px;
+  line-height: 30px;
+  color: $light;
+  border: 1px solid $light;
   display: flex;
   justify-content: center;
   align-items: center;
+  &.inverted {
+    background: transparent;
+    color: black;
+    border: 1px solid black;
+  }
   &.small {
     width: 20px;
     height: 20px;

@@ -14,11 +14,18 @@
   padding: 16px;
   overflow: hidden;
   box-shadow: $bs;
+  .header {
+    font-family: "Chalk";
+  }
   .wrapper {
     overflow: auto;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: center;
+    column-count: 1;
+    float: left;
+    & > div {
+      float: left;
+      margin-bottom: 32px;
+      margin-right: 40px;
+    }
   }
 }
 .bottomRow {
