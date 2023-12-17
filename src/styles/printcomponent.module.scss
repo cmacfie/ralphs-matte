@@ -11,6 +11,7 @@
     width: 210mm;
     height: 297mm;
     display: block;
+    //padding-bottom: 100mm;
   }
   .header {
     padding-top: 40px;
@@ -31,8 +32,10 @@
   }
   .answersOuter {
     display: block;
-    //padding-top: 297mm;
-    position: relative;
+    padding-top: 297mm;
+    height: 297mm;
+    position: fixed;
+    bottom: 0;
     .answers {
       //height: 297mm;
       //width: 210mm;

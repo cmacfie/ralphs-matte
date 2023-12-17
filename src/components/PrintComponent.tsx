@@ -52,24 +52,14 @@ const PrintComponent = forwardRef<Ref, IPrintComponent>(
                 <MathProblem inverted problem={p} index={i + 1} />
               ))}
             </div>
-            {/*<div className={s.page}>*/}
-              <div className={s.answersOuter}>
-                <div className={s.answers}>
-                  <h1 className={s.header}>Facit</h1>
-                  <Answers problems={problems} />
-                </div>
-              </div>
-            {/*</div>*/}
           </div>
         </div>
-        {/*<div className={s.page}>*/}
-        {/*  <div className={s.answersOuter}>*/}
-        {/*    <div className={s.answers}>*/}
-        {/*      <h1 className={s.header}>Facit</h1>*/}
-        {/*      <Answers problems={problems} />*/}
-        {/*    </div>*/}
-        {/*  </div>*/}
-        {/*</div>*/}
+        <div className={s.answersOuter}>
+          <div className={s.answers}>
+            <h1 className={s.header}>Facit</h1>
+            <Answers problems={problems} />
+          </div>
+        </div>
       </div>
     );
   },
