@@ -1,0 +1,47 @@
+.printComponent {
+  visibility: hidden;
+  position: fixed;
+  width: 210mm;
+  height: 297mm;
+  pointer-events: none;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: flex-start;
+  align-items: flex-start;
+  background: white;
+  font-family: "Chalk";
+  .header {
+    margin-bottom: 10mm;
+  }
+  .outerInner {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-between;
+    flex: 1;
+    .problems {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: center;
+      align-items: center;
+      column-gap: 100px;
+      & > * {
+        flex: 0 1 50mm;
+        position: relative;
+      }
+    }
+    .answers {
+      transform: rotate(180deg);
+      display: flex;
+      flex-flow: row wrap;
+      gap: 16px;
+      .answer {
+        display: flex;
+        flex-flow: row nowrap;
+        gap: 4px;
+        span {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+}

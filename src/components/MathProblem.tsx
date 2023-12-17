@@ -1,9 +1,15 @@
 import { useMemo } from "react";
 import { IMathProblem, ProblemType } from "@/interfaces";
 import s from "@/styles/mathproblem.module.scss";
-import Icon, { Icons } from "@/components/Icon";
+import layout from "@/styles/layout.module.scss";
 
-const MathProblem = (problem: IMathProblem) => {
+const MathProblem = ({
+  problem,
+  index,
+}: {
+  problem: IMathProblem;
+  index: number;
+}) => {
   const Symbol = useMemo(() => {
     switch (problem.type) {
       case ProblemType.ADDITION:
@@ -19,11 +25,13 @@ const MathProblem = (problem: IMathProblem) => {
 
   return (
     <div className={s.mathProblem}>
+      <div className={s.index}>
+        <span>{`${index}`}</span>
+      </div>
       <span>{problem.number1}</span>
       <span>{Symbol}</span>
       <span>{problem.number2}</span>
       <span>=</span>
-      <span></span>
     </div>
   );
 };

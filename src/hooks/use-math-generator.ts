@@ -2,12 +2,14 @@ import random from "random";
 import { IMathProblem, MinMax, ProblemType } from "@/interfaces";
 import useTypeConverter from "@/hooks/use-type-converter";
 import { ISettings } from "@/hooks/use-settings";
+import useLocalStorage from "@/hooks/use-local-storage";
 
 const useMathGenerator = ({
   multiplicationRange,
   additionRange,
 }: ISettings) => {
   const { StringToMathProblemType } = useTypeConverter();
+  const { setItem, getItem } = useLocalStorage();
 
   const toProblemTypes = (problems: string[]) => {
     return problems.map((s) => StringToMathProblemType(s));
@@ -74,12 +76,22 @@ const useMathGenerator = ({
         problems.push(_createProblem(type));
       }
     }
+    setItem("problems", JSON.stringify(problems));
     return problems;
+  };
+
+  const getSavedProblems = (): IMathProblem[] => {
+    const items = getItem("problems");
+    if (items) {
+      return JSON.parse(items) as IMathProblem[];
+    }
+    return [];
   };
 
   return {
     generateArray,
     toProblemTypes,
+    getSavedProblems,
   };
 };
 

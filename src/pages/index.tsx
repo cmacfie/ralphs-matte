@@ -12,6 +12,8 @@ import { useReactToPrint } from "react-to-print";
 import classNames from "classnames";
 import useSettings, { ISettings } from "@/hooks/use-settings";
 import { useRouter } from "next/router";
+import PrintComponent from "@/components/PrintComponent";
+import printComponentCss from "@/styles/printcomponent.module.scss";
 
 const ProblemPage = () => {
   const router = useRouter();
@@ -42,7 +44,7 @@ const ProblemPage = () => {
 
   const handlePrint = useReactToPrint({
     content: () => ref.current,
-    pageStyle: `* { background: white; font-family: "Chalk" }`,
+    pageStyle: `* { visibility: visible; opacity: 1 !important; position: relative !important; }`,
   });
 
   return (
@@ -50,9 +52,9 @@ const ProblemPage = () => {
       <MathButtons />
       <div className={s.problemPage}>
         <h1 className={s.header}>Mattetal</h1>
-        <div className={s.wrapper} ref={(el) => (ref.current = el)}>
-          {problems.map((problem) => (
-            <MathProblem {...problem} />
+        <div className={s.wrapper}>
+          {problems.map((problem, i) => (
+            <MathProblem problem={problem} index={i + 1} />
           ))}
         </div>
       </div>
@@ -71,6 +73,7 @@ const ProblemPage = () => {
           <Icon icon={Icons.PRINT} />
         </NormalButton>
       </div>
+      <PrintComponent problems={problems} ref={(el) => (ref.current = el)} />
     </RootLayout>
   );
 };

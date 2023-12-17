@@ -7,7 +7,28 @@
   gap: 16px;
   max-width: 400px;
   flex: 1 1 400px;
-  span, * {
+  & > span {
     font-size: 30px;
+    font-family: "Chalk";
+  }
+}
+.index {
+  font-family: "Chalk";
+  background: white;
+  border-radius: 50%;
+  width: 30px;
+  height: 30px;
+  font-size: 20px;
+  line-height: 20px;
+  color: black;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &.small {
+    width: 20px;
+    height: 20px;
+    font-size: 12px;
+    line-height: 12px;
   }
 }

@@ -1,4 +1,5 @@
 import { MinMax } from "@/interfaces";
+import useLocalStorage from "@/hooks/use-local-storage";
 
 export interface ISettings {
   additionRange: MinMax;
@@ -7,22 +8,11 @@ export interface ISettings {
 }
 
 const useSettings = () => {
+  const { getItem, setItem } = useLocalStorage();
   const defaultSettings: ISettings = {
     additionRange: { min: 1, max: 50 },
     multiplicationRange: { min: 1, max: 10 },
     numberOfProblems: 20,
-  };
-
-  const getItem = (key: string) => {
-    if (typeof window !== "undefined" && window.localStorage) {
-      return localStorage.getItem(key);
-    }
-    return null;
-  };
-  const setItem = (key: string, object: any) => {
-    if (typeof window !== "undefined" && window.localStorage) {
-      localStorage.setItem(key, object);
-    }
   };
 
   const getSettings = (): ISettings => {
