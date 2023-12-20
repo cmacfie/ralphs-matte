@@ -8,7 +8,7 @@ import RootLayout from "@/app/layout";
 import MathButtons from "@/components/MathButtons";
 import NormalButton from "@/components/NormalButton";
 import Icon, { Icons } from "@/components/Icon";
-import { useReactToPrint } from "react-to-print";
+import ReactToPrint, { useReactToPrint } from "react-to-print";
 import classNames from "classnames";
 import useSettings, { ISettings } from "@/hooks/use-settings";
 import { useRouter } from "next/router";
@@ -73,7 +73,7 @@ const ProblemPage = () => {
           <Icon icon={Icons.PRINT} />
         </NormalButton>
       </div>
-      <PrintComponent problems={problems} ref={(el) => (ref.current = el)} />
+      <PrintComponent problems={problems} ref={ref} />
     </RootLayout>
   );
 };
