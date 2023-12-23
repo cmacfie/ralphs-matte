@@ -22,9 +22,6 @@
         flex-flow: row nowrap;
         .problemEntry {
           flex: 0 0 50%;
-          & > div {
-            border-bottom: 1px solid black;
-          }
         }
       }
     }

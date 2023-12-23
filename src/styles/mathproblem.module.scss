@@ -2,7 +2,10 @@
 .mathProblem {
   font-size: 60px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 50mm;
+  grid-template-columns: repeat(6, 1fr);
+  @media print {
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 50mm;
+  }
   align-items: flex-end;
   justify-content: center;
   gap: 16px;
@@ -13,7 +16,9 @@
     font-family: "Chalk";
   }
   .answerRow {
-    border-bottom: 1px solid white;
+    @media print {
+      border-bottom: 1px solid black;
+    }
     width: 100%;
   }
 }
