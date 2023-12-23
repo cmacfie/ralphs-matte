@@ -2,7 +2,8 @@
   font-family: "Chalk";
   display: block;
   .page {
-    display: block;
+    display: flex;
+    flex-flow: column nowrap;
   }
   .header {
     padding-top: 40px;

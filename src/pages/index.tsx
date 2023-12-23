@@ -70,7 +70,7 @@ const ProblemPage = () => {
           >
             <Icon icon={Icons.RELOAD} />
           </NormalButton>
-          <NormalButton onClick={handlePrint}>
+          <NormalButton onClick={handlePrint} disabled={problems.length === 0}>
             <Icon icon={Icons.PRINT} />
           </NormalButton>
         </div>

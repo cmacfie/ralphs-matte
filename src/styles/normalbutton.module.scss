@@ -7,10 +7,15 @@
   font-size: 20px;
   font-weight: bold;
   color: $light;
-  &.primary {
+  &.primary:not(:disabled) {
     background: $primary;
   }
-  &.secondary {
+  &.secondary:not(:disabled) {
     background: $secondary;
+  }
+  &:disabled {
+    opacity: 0.5;
+    background: $disabled;
+    color: $disabledLight;
   }
 }
