@@ -10,13 +10,11 @@
     -webkit-print-color-adjust: exact;
   }
 }
+$margin: 20mm;
 @media print {
   @page {
-    size: 210mm 297mm;
+    size: #{210mm - $margin * 2} #{297mm - $margin * 2};
   }
-}
-@page {
-  margin: 20mm;
 }
 body {
   margin: 0;
