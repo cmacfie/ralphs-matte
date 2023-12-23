@@ -37,7 +37,7 @@ const MathProblem = ({
       <span>{Symbol}</span>
       <span>{problem.number2}</span>
       <span>=</span>
-      <span className={s.answerRow}></span>
+      <div className={s.answerRow}></div>
     </div>
   );
 };

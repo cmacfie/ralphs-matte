@@ -37,10 +37,10 @@ const useMathGenerator = ({
   const _createProblem = (type: ProblemType): IMathProblem => {
     if (type === ProblemType.DIVISION) {
       const answer = getNumberInRange(type);
-      const smallNumber = random.int(2, 3);
+      const number2 = getNumberInRange(type);
       return {
-        number1: answer * smallNumber,
-        number2: smallNumber,
+        number1: answer * number2,
+        number2: number2,
         type: ProblemType.DIVISION,
         answer: answer,
       };
