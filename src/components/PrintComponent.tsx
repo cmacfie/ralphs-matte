@@ -31,7 +31,7 @@ const Answers = ({ problems }: { problems: IMathProblem[] }) => {
                   MathCss.inverted,
                 )}
               >
-                <span>{100 - i}</span>
+                <span>{problems.length - i}</span>
               </div>
               {p.answer}
             </div>
@@ -71,7 +71,7 @@ const PrintComponent = forwardRef<Ref, IPrintComponent>(
     return (
       <div
         {...p}
-        className={classNames(className, s.printComponent, "print")}
+        className={classNames(className, s.printComponent)}
         ref={ref}
       >
         <Problems problems={problems} />

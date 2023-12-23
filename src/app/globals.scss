@@ -5,11 +5,18 @@
 }
 @media print {
   html, body {
-    height: 100vh; /* Use 100% here to support printing more than a single page*/
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: hidden;
+    height: initial !important;
+    overflow: initial !important;
+    -webkit-print-color-adjust: exact;
   }
+}
+@media print {
+  @page {
+    size: 210mm 297mm;
+  }
+}
+@page {
+  margin: 20mm;
 }
 body {
   margin: 0;
