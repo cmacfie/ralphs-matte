@@ -5,10 +5,12 @@ import layout from "@/styles/layout.module.scss";
 import classNames from "classnames";
 
 const MathProblem = ({
+  className = "",
   problem,
   index,
-    inverted,
+  inverted,
 }: {
+  className?: string;
   problem: IMathProblem;
   index: number;
   inverted?: boolean;
@@ -27,7 +29,7 @@ const MathProblem = ({
   }, [problem]);
 
   return (
-    <div className={s.mathProblem}>
+    <div className={classNames(className, s.mathProblem)}>
       <div className={classNames(s.index, inverted ? s.inverted : null)}>
         <span>{`${index}`}</span>
       </div>

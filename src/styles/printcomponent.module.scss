@@ -1,6 +1,5 @@
 .printComponent {
   font-family: "Chalk";
-  background: white;
   display: block;
   .page {
     display: block;
@@ -9,32 +8,44 @@
     padding-top: 40px;
     padding-bottom: 20px;
   }
-  .outerInner {
-    display: block;
-    width: 210mm;
+
+  .problemWrapper {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
     .problems {
-      column-count: 2;
-      & > * {
-        flex: 0 1 40mm;
-        float: left;
-        position: relative;
+      column-count:  2;
+      fleX: 1 1 100%;
+      .problemEntryWrapper {
+        display: flex;
+        flex-flow: row nowrap;
+        .problemEntry {
+          flex: 0 0 50%;
+        }
       }
     }
   }
+
+  .pageBreak {
+    page-break-before: always;
+  }
   .answersOuter {
-    display: block;
-    height: 297mm;
-    bottom: 0;
+    display: flex;
+    flex-flow: column-reverse;
+    .header {
+      transform: rotate(180deg);
+    }
     .answers {
       height: 100%;
       width: 100%;
-      transform: rotate(180deg);
       .answer {
+        transform: rotate(180deg);
         display: flex;
         float: left;
         flex-flow: row nowrap;
         gap: 4px;
-        margin-bottom: 20px;
+        margin-top: 20px;
         margin-right: 20px;
         span {
           font-weight: bold;

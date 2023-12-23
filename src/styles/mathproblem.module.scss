@@ -6,9 +6,9 @@
   align-items: center;
   justify-content: center;
   gap: 16px;
-  //max-width: 400px;
-  //flex: 1 1 400px;
   & > span {
+    width: 32px;
+    text-align: center;
     font-size: 30px;
     font-family: "Chalk";
   }

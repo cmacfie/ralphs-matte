@@ -1,22 +1,25 @@
 @import "@/styles/variables.module.scss";
 @font-face {
-  font-family: 'Chalk';
-  src: url('/NiceChalk.otf');
+  font-family: "Chalk";
+  src: url("/NiceChalk.otf");
 }
 body {
   background-color: $background;
   margin: 0;
-  &::after {
-    content: "";
-    height: 100%;
-    width: 100%;
-    z-index: -1;
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-image: url("/background.jpg");
-    background-size: contain;
-    opacity: 0.2;
+
+  main {
+    &::after {
+      content: "";
+      height: 100%;
+      width: 100%;
+      z-index: -1;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-image: url("/background.jpg");
+      background-size: contain;
+      opacity: 0.2;
+    }
   }
 }
 h1 {
