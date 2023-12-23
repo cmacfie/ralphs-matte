@@ -48,33 +48,37 @@ const ProblemPage = () => {
   });
 
   return (
-    <RootLayout>
-      <MathButtons />
-      <div className={s.problemPage}>
-        <h1 className={s.header}>Mattetal</h1>
-        <div className={s.wrapper}>
-          {problems.map((problem, i) => (
-            <MathProblem problem={problem} index={i + 1} />
-          ))}
+    <>
+      <RootLayout>
+        <MathButtons />
+        <div className={s.problemPage}>
+          <h1 className={s.header}>Mattetal</h1>
+          <div className={s.wrapper}>
+            {problems.map((problem, i) => (
+              <MathProblem problem={problem} index={i + 1} />
+            ))}
+          </div>
         </div>
+        <div className={s.bottomRow}>
+          <NormalButton onClick={() => router.push("/settings")}>
+            <Icon icon={Icons.SETTINGS} />
+          </NormalButton>
+          <NormalButton
+            className={classNames(s.grow)}
+            color={"primary"}
+            onClick={generateProblems}
+          >
+            <Icon icon={Icons.RELOAD} />
+          </NormalButton>
+          <NormalButton onClick={handlePrint}>
+            <Icon icon={Icons.PRINT} />
+          </NormalButton>
+        </div>
+      </RootLayout>
+      <div style={{ display: "none" }}>
+        <PrintComponent problems={problems} ref={ref} />
       </div>
-      <div className={s.bottomRow}>
-        <NormalButton onClick={() => router.push("/settings")}>
-          <Icon icon={Icons.SETTINGS} />
-        </NormalButton>
-        <NormalButton
-          className={classNames(s.grow)}
-          color={"primary"}
-          onClick={generateProblems}
-        >
-          <Icon icon={Icons.RELOAD} />
-        </NormalButton>
-        <NormalButton onClick={handlePrint}>
-          <Icon icon={Icons.PRINT} />
-        </NormalButton>
-      </div>
-      <PrintComponent problems={problems} ref={ref} />
-    </RootLayout>
+    </>
   );
 };
 export default ProblemPage;
