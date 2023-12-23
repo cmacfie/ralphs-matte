@@ -9,9 +9,11 @@ import { useRouter } from "next/router";
 
 export type ToggledMathTypes = { [key in ProblemType]: boolean };
 
-const MathButtons = () => {
-  const { MathProblemsToParams, ParamsToMathProblems } = useTypeConverter();
-  const router = useRouter();
+const MathButtons = ({
+  onChange,
+}: {
+  onChange: (newTypes: ToggledMathTypes) => void;
+}) => {
   const [toggled, setToggled] = useState<ToggledMathTypes>({
     [ProblemType.ADDITION]: true,
     [ProblemType.SUBTRACTION]: false,
@@ -19,24 +21,16 @@ const MathButtons = () => {
     [ProblemType.DIVISION]: false,
   });
 
-  useEffect(() => {
-    const queries = router.query.t ?? [];
-    if (typeof queries !== "string") {
-      return;
-    }
-    const newModel = ParamsToMathProblems(queries.split(";"));
-    setToggled(newModel);
-  }, []);
-
   const onToggle = (type: ProblemType) => {
     setToggled((old) => ({
       ...old,
       [type]: !old[type],
     }));
   };
+
   useEffect(() => {
-    router.query.t = MathProblemsToParams(toggled);
-    router.push(router);
+    console.log(toggled);
+    onChange(toggled);
   }, [toggled]);
 
   return (

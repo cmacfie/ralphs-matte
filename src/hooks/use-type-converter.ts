@@ -65,17 +65,13 @@ const useTypeConverter = () => {
   };
   const StringToMathProblemType = (s: string) => {
     switch (s) {
-      case "addition":
-      case "a":
+      case "ADDITION":
         return ProblemType.ADDITION;
-      case "subtraction":
-      case "s":
+      case "SUBTRACTION":
         return ProblemType.SUBTRACTION;
-      case "mutliplication":
-      case "m":
+      case "MUTLIPLICATION":
         return ProblemType.MULTIPLICATION;
-      case "division":
-      case "d":
+      case "DIVISION":
         return ProblemType.DIVISION;
     }
   };
