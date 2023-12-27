@@ -1,6 +1,12 @@
 import { IMathProblem, ProblemType } from "@/interfaces";
 import useMathGenerator from "@/hooks/use-math-generator";
-import React, { useEffect, useMemo, useRef, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import MathProblem from "@/components/MathProblem";
 import { useSearchParams } from "next/navigation";
 import s from "@/styles/problemPage.module.scss";
@@ -24,12 +30,19 @@ const ProblemPage = () => {
   const [activeProblemTypes, setActiveProblemTypes] = useState<ProblemType[]>([
     ProblemType.ADDITION,
   ]);
+  const [showAnswers, setShowAnswers] = useState(false);
 
   const { generateArray } = useMathGenerator(settings);
   const { StringToMathProblemType } = useTypeConverter();
 
+  useEffect(() => {
+    if (problems.length === 0) {
+      generateProblems();
+    }
+  }, [problems]);
 
   const generateProblems = () => {
+    setShowAnswers(false);
     setProblems(
       generateArray(activeProblemTypes, settings?.numberOfProblems ?? 20),
     );
@@ -54,30 +67,61 @@ const ProblemPage = () => {
     setActiveProblemTypes(updatedProblemTypes);
   };
 
+  const MiddleButton = useCallback(() => {
+    if (!showAnswers) {
+      return (
+        <NormalButton
+          className={classNames(s.grow)}
+          color={"primary"}
+          onClick={() => setShowAnswers(true)}
+          chalk
+        >
+          <Icon icon={Icons.IDEA} />
+          VISA SVAR
+        </NormalButton>
+      );
+    } else {
+      return (
+        <NormalButton
+          className={classNames(s.grow)}
+          color={"primary"}
+          onClick={generateProblems}
+          chalk
+        >
+          <Icon icon={Icons.RELOAD} />
+          <span>NYA TAL</span>
+        </NormalButton>
+      );
+    }
+  }, [showAnswers]);
+
   return (
     <>
       <RootLayout>
         <MathButtons onChange={onProblemTypesChange} />
         <div className={s.problemPage}>
-          <h1 className={s.header}>Mattetal</h1>
+          <h1 className={s.header}>MATTETAL</h1>
           <div className={s.wrapper}>
             {problems.map((problem, i) => (
-              <MathProblem problem={problem} index={i + 1} />
+              <MathProblem
+                key={JSON.stringify(problem)}
+                problem={problem}
+                index={i + 1}
+                showAnswer={showAnswers}
+              />
             ))}
           </div>
         </div>
         <div className={s.bottomRow}>
-          <NormalButton onClick={() => router.push("/settings")}>
+          <NormalButton leveled onClick={() => router.push("/settings")}>
             <Icon icon={Icons.SETTINGS} />
           </NormalButton>
+          <MiddleButton />
           <NormalButton
-            className={classNames(s.grow)}
-            color={"primary"}
-            onClick={generateProblems}
+            onClick={handlePrint}
+            leveled
+            disabled={problems.length === 0}
           >
-            <Icon icon={Icons.RELOAD} />
-          </NormalButton>
-          <NormalButton onClick={handlePrint} disabled={problems.length === 0}>
             <Icon icon={Icons.PRINT} />
           </NormalButton>
         </div>

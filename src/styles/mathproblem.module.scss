@@ -6,10 +6,10 @@
   @media print {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 50mm;
   }
-  align-items: flex-end;
+  align-items: center;
   justify-content: center;
   gap: 16px;
-  & > span {
+  & > * {
     width: 32px;
     text-align: center;
     font-size: 30px;

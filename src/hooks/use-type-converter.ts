@@ -1,7 +1,7 @@
 import { ProblemType } from "@/interfaces";
 import {
   faArrowsRotate,
-  faDivide,
+  faDivide, faFloppyDisk, faLightbulb,
   faMinus,
   faPlus,
   faPrint,
@@ -29,6 +29,10 @@ const useTypeConverter = () => {
         return faSliders;
       case Icons.RELOAD:
         return faArrowsRotate;
+      case Icons.IDEA:
+        return faLightbulb;
+      case Icons.SAVE:
+        return faFloppyDisk;
     }
   };
 
@@ -69,7 +73,7 @@ const useTypeConverter = () => {
         return ProblemType.ADDITION;
       case "SUBTRACTION":
         return ProblemType.SUBTRACTION;
-      case "MUTLIPLICATION":
+      case "MULTIPLICATION":
         return ProblemType.MULTIPLICATION;
       case "DIVISION":
         return ProblemType.DIVISION;

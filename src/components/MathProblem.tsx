@@ -8,11 +8,15 @@ const MathProblem = ({
   className = "",
   problem,
   index,
+  key,
+    showAnswer,
   inverted,
 }: {
   className?: string;
   problem: IMathProblem;
   index: number;
+  key: string;
+  showAnswer?: boolean;
   inverted?: boolean;
 }) => {
   const Symbol = useMemo(() => {
@@ -29,7 +33,7 @@ const MathProblem = ({
   }, [problem]);
 
   return (
-    <div className={classNames(className, s.mathProblem)}>
+    <div className={classNames(className, s.mathProblem)} key={key}>
       <div className={classNames(s.index, inverted ? s.inverted : null)}>
         <span>{`${index}`}</span>
       </div>
@@ -37,7 +41,7 @@ const MathProblem = ({
       <span>{Symbol}</span>
       <span>{problem.number2}</span>
       <span>=</span>
-      <div className={s.answerRow}></div>
+      <div className={s.answerRow}>{showAnswer ? problem.answer : null}</div>
     </div>
   );
 };

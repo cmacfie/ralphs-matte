@@ -4,8 +4,6 @@ import { ProblemType } from "@/interfaces";
 import Icon, { Icons } from "@/components/Icon";
 import classNames from "classnames";
 import s from "@/styles/mathbuttons.module.scss";
-import useTypeConverter from "@/hooks/use-type-converter";
-import { useRouter } from "next/router";
 
 export type ToggledMathTypes = { [key in ProblemType]: boolean };
 
@@ -29,7 +27,6 @@ const MathButtons = ({
   };
 
   useEffect(() => {
-    console.log(toggled);
     onChange(toggled);
   }, [toggled]);
 

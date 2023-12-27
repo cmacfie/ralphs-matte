@@ -31,6 +31,7 @@
 .bottomRow {
   display: flex;
   flex-flow: row nowrap;
+  justify-content: space-between;
   gap: 16px;
   .grow {
     flex: 1;

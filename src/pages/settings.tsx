@@ -1,11 +1,12 @@
 import s from "@/styles/settings.module.scss";
 import RootLayout from "@/app/layout";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useSettings, { ISettings } from "@/hooks/use-settings";
 import Input from "@/components/input";
 import NormalButton from "@/components/NormalButton";
 import layout from "@/styles/layout.module.scss";
 import { useRouter } from "next/router";
+import Icon, { Icons } from "@/components/Icon";
 
 const SettingsPage = () => {
   const { getSettings, updateSettings } = useSettings();
@@ -34,10 +35,9 @@ const SettingsPage = () => {
   return (
     <RootLayout>
       <div className={s.settingsPage}>
-        <h1>Inställningar</h1>
         <div className={s.inputs}>
           <div className={s.inputColumn}>
-            <h2 className={s.header}>Mattetal per ark</h2>
+            <h2 className={s.header}>MATTETAL PER ARK</h2>
 
             <div className={s.inputRow}>
               <div className={s.inputAndLabelWrapper}>
@@ -118,7 +118,8 @@ const SettingsPage = () => {
           color={"primary"}
           onClick={onSave}
         >
-          Spara
+          <Icon icon={Icons.SAVE} />
+          <span>SPARA</span>
         </NormalButton>
       </div>
     </RootLayout>

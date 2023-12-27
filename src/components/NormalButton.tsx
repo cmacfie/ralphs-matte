@@ -4,16 +4,20 @@ import classNames from "classnames";
 
 export interface INormalButton extends ButtonHTMLAttributes<HTMLButtonElement> {
   color?: "primary" | "secondary";
+  chalk?: boolean;
+  leveled?: boolean;
 }
 
 const NormalButton = (props: INormalButton) => {
-  let { className, color, children, ...otherProps } = props;
+  let { className, color, leveled, chalk, children, ...otherProps } = props;
   return (
     <button
       {...otherProps}
       className={classNames(
         className,
         s.button,
+        chalk ? s.chalk : null,
+        leveled ? s.leveled : null,
         color === "primary" ? s.primary : s.secondary,
       )}
     >

@@ -3,6 +3,7 @@ import { IMathProblem, MinMax, ProblemType } from "@/interfaces";
 import useTypeConverter from "@/hooks/use-type-converter";
 import { ISettings } from "@/hooks/use-settings";
 import useLocalStorage from "@/hooks/use-local-storage";
+import {useCallback} from "react";
 
 const useMathGenerator = ({
   multiplicationRange,
@@ -65,7 +66,7 @@ const useMathGenerator = ({
     };
   };
 
-  const generateArray = (
+  const generateArray = useCallback((
     types: (ProblemType | undefined)[],
     quantity: number,
   ) => {
@@ -78,7 +79,7 @@ const useMathGenerator = ({
     }
     setItem("problems", JSON.stringify(problems));
     return problems;
-  };
+  }, []);
 
   const getSavedProblems = (): IMathProblem[] => {
     const items = getItem("problems");

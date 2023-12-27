@@ -6,9 +6,11 @@ import {
   HTMLAttributes,
   HTMLProps,
   InputHTMLAttributes,
+  useMemo,
 } from "react";
 import classNames from "classnames";
 import MathCss from "@/styles/mathproblem.module.scss";
+import useMathGenerator from "@/hooks/use-math-generator";
 
 export interface IPrintComponent extends HTMLProps<HTMLDivElement> {
   problems: IMathProblem[];
@@ -22,9 +24,10 @@ const Answers = ({ problems }: { problems: IMathProblem[] }) => {
       <div className={s.answersOuter}>
         <h1 className={s.header}>Facit</h1>
         <div className={s.answers}>
-          {problems.reverse().map((p, i) => (
+          {problems.map((p, i) => (
             <div className={s.answer}>
               <div
+                key={"answer-print" + p.answer}
                 className={classNames(
                   MathCss.index,
                   MathCss.small,
@@ -45,7 +48,7 @@ const Answers = ({ problems }: { problems: IMathProblem[] }) => {
 const Problems = ({ problems }: { problems: IMathProblem[] }) => {
   return (
     <div className={s.page}>
-      <h1 className={s.header}>Ralphs mattetal</h1>
+      <h1 className={s.header}>RALPHS MATTETAL</h1>
       <div className={s.problemWrapper}>
         <div className={s.problems}>
           {problems.map((p, i) => (
@@ -54,6 +57,8 @@ const Problems = ({ problems }: { problems: IMathProblem[] }) => {
                 className={s.problemEntry}
                 inverted
                 problem={p}
+                showAnswer={false}
+                key={"print-" + JSON.stringify(p)}
                 index={i + 1}
               />
             </div>
@@ -68,15 +73,14 @@ const PageBreak = () => <div className={s.pageBreak} />;
 
 const PrintComponent = forwardRef<Ref, IPrintComponent>(
   ({ problems, className, ...p }, ref) => {
+      const clonedProblems = useMemo(() => [...problems], [problems])
+      const reversedProblems = useMemo(() => [...problems].reverse(), [problems]);
+
     return (
-      <div
-        {...p}
-        className={classNames(className, s.printComponent)}
-        ref={ref}
-      >
-        <Problems problems={problems} />
+      <div {...p} className={classNames(className, s.printComponent)} ref={ref}>
+        <Problems problems={clonedProblems} />
         <PageBreak />
-        <Answers problems={problems} />
+        <Answers problems={reversedProblems} />
       </div>
     );
   },
