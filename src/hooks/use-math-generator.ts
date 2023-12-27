@@ -73,6 +73,7 @@ const useMathGenerator = ({
     const problems: IMathProblem[] = [];
     for (let i = 0; i < quantity; i++) {
       const type = types[random.integer(0, types.length - 1)];
+      console.log(type);
       if (type !== undefined) {
         problems.push(_createProblem(type));
       }

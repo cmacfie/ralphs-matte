@@ -34,25 +34,26 @@ const ProblemPage = () => {
   const [printing, setPrinting] = useState(false);
 
   const { generateArray } = useMathGenerator(settings);
-  const { StringToMathProblemType } = useTypeConverter();
 
   useEffect(() => {
     if (problems.length === 0) {
       generateProblems();
     }
-  }, [problems]);
+  }, []);
 
   useEffect(() => {
-    if(activeProblemTypes.length > 0) {
+    if (activeProblemTypes.length > 0) {
       generateProblems();
     }
   }, [activeProblemTypes]);
 
   const generateProblems = () => {
     setPrinting(false);
-    setProblems(
-      generateArray(activeProblemTypes, settings?.numberOfProblems ?? 20),
+    const generatedProblems = generateArray(
+      activeProblemTypes,
+      settings?.numberOfProblems,
     );
+    setProblems(generatedProblems);
   };
 
   const handlePrint = useReactToPrint({
@@ -62,18 +63,8 @@ const ProblemPage = () => {
     },
   });
 
-  const onProblemTypesChange = (types: ToggledMathTypes) => {
-    const updatedProblemTypes = Object.entries(types).reduce(
-      (all: ProblemType[], [key, isToggled]) => {
-        const problemType = StringToMathProblemType(key);
-        if (isToggled && problemType) {
-          return [...all, problemType];
-        }
-        return all;
-      },
-      [],
-    );
-    setActiveProblemTypes(updatedProblemTypes);
+  const onProblemTypesChange = (types: ProblemType[]) => {
+    setActiveProblemTypes(types);
   };
 
   return (
@@ -88,7 +79,7 @@ const ProblemPage = () => {
           <div className={s.wrapper}>
             {problems.map((problem, i) => (
               <MathProblem
-                key={JSON.stringify(problem)}
+                key={JSON.stringify(problem) + i}
                 problem={problem}
                 index={i + 1}
               />
