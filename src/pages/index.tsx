@@ -31,7 +31,7 @@ const ProblemPage = () => {
   const [activeProblemTypes, setActiveProblemTypes] = useState<ProblemType[]>([
     ProblemType.ADDITION,
   ]);
-  const [showAnswers, setShowAnswers] = useState(false);
+  const [printing, setPrinting] = useState(false);
 
   const { generateArray } = useMathGenerator(settings);
   const { StringToMathProblemType } = useTypeConverter();
@@ -42,15 +42,24 @@ const ProblemPage = () => {
     }
   }, [problems]);
 
+  useEffect(() => {
+    if(activeProblemTypes.length > 0) {
+      generateProblems();
+    }
+  }, [activeProblemTypes]);
+
   const generateProblems = () => {
-    setShowAnswers(false);
+    setPrinting(false);
     setProblems(
       generateArray(activeProblemTypes, settings?.numberOfProblems ?? 20),
     );
   };
 
   const handlePrint = useReactToPrint({
-    content: () => ref.current,
+    content: () => {
+      setPrinting(true);
+      return ref.current;
+    },
   });
 
   const onProblemTypesChange = (types: ToggledMathTypes) => {
@@ -67,34 +76,6 @@ const ProblemPage = () => {
     setActiveProblemTypes(updatedProblemTypes);
   };
 
-  const MiddleButton = useCallback(() => {
-    if (!showAnswers) {
-      return (
-        <NormalButton
-          className={classNames(s.grow)}
-          color={"primary"}
-          onClick={() => setShowAnswers(true)}
-          chalk
-        >
-          <Icon icon={Icons.IDEA} />
-          VISA SVAR
-        </NormalButton>
-      );
-    } else {
-      return (
-        <NormalButton
-          className={classNames(s.grow)}
-          color={"primary"}
-          onClick={generateProblems}
-          chalk
-        >
-          <Icon icon={Icons.RELOAD} />
-          <span>NYA TAL</span>
-        </NormalButton>
-      );
-    }
-  }, [showAnswers]);
-
   return (
     <>
       <Head>
@@ -110,7 +91,6 @@ const ProblemPage = () => {
                 key={JSON.stringify(problem)}
                 problem={problem}
                 index={i + 1}
-                showAnswer={showAnswers}
               />
             ))}
           </div>
@@ -119,7 +99,15 @@ const ProblemPage = () => {
           <NormalButton leveled onClick={() => router.push("/settings")}>
             <Icon icon={Icons.SETTINGS} />
           </NormalButton>
-          <MiddleButton />
+          <NormalButton
+            className={classNames(s.grow)}
+            color={"primary"}
+            onClick={generateProblems}
+            chalk
+          >
+            <Icon icon={Icons.RELOAD} />
+            <span>NYA TAL</span>
+          </NormalButton>
           <NormalButton
             onClick={handlePrint}
             leveled
@@ -129,9 +117,11 @@ const ProblemPage = () => {
           </NormalButton>
         </div>
       </RootLayout>
-      <div style={{ display: "none" }}>
-        <PrintComponent problems={problems} ref={ref} />
-      </div>
+      {printing && (
+        <div style={{ display: "none" }}>
+          <PrintComponent problems={problems} ref={ref} />
+        </div>
+      )}
     </>
   );
 };

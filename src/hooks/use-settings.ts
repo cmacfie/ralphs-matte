@@ -10,7 +10,7 @@ export interface ISettings {
 const useSettings = () => {
   const { getItem, setItem } = useLocalStorage();
   const defaultSettings: ISettings = {
-    additionRange: { min: 1, max: 50 },
+    additionRange: { min: 1, max: 25 },
     multiplicationRange: { min: 1, max: 10 },
     numberOfProblems: 20,
   };

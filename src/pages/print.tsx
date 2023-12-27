@@ -7,7 +7,7 @@ import PrintLayout from "@/layouts/print-layout";
 const PrintPage = () => {
   const [problems, setProblems] = useState<IMathProblem[]>([]);
   const { generateArray, getSavedProblems } = useMathGenerator({
-    additionRange: { min: 1, max: 50 },
+    additionRange: { min: 1, max: 25 },
     multiplicationRange: { min: 1, max: 10 },
     numberOfProblems: 20,
   });
