@@ -58,10 +58,16 @@ const ProblemPage = () => {
 
   const handlePrint = useReactToPrint({
     content: () => {
-      setPrinting(true);
+      setPrinting(false);
       return ref.current;
     },
   });
+
+  useEffect(() => {
+    if(printing && ref.current) {
+      handlePrint();
+    }
+  }, [printing, ref.current]);
 
   const onProblemTypesChange = (types: ProblemType[]) => {
     setActiveProblemTypes(types);
@@ -100,7 +106,7 @@ const ProblemPage = () => {
             <span>NYA TAL</span>
           </NormalButton>
           <NormalButton
-            onClick={handlePrint}
+            onClick={() => setPrinting(true)}
             leveled
             disabled={problems.length === 0}
           >
