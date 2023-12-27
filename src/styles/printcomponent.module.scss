@@ -21,6 +21,9 @@
         display: flex;
         flex-flow: row nowrap;
         .problemEntry {
+          &, * {
+            color: black;
+          }
           flex: 0 0 50%;
         }
       }

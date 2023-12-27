@@ -9,7 +9,7 @@ const MathProblem = ({
   problem,
   index,
   key,
-    showAnswer,
+  showAnswer,
   inverted,
 }: {
   className?: string;

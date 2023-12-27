@@ -50,7 +50,6 @@ const ProblemPage = () => {
 
   const handlePrint = useReactToPrint({
     content: () => ref.current,
-    pageStyle: `* { visibility: visible; opacity: 1 !important; position: relative !important; }`,
   });
 
   const onProblemTypesChange = (types: ToggledMathTypes) => {
