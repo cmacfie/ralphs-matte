@@ -20,6 +20,7 @@ import useSettings, { ISettings } from "@/hooks/use-settings";
 import { useRouter } from "next/router";
 import PrintComponent from "@/components/PrintComponent";
 import useTypeConverter from "@/hooks/use-type-converter";
+import Head from "next/head";
 
 const ProblemPage = () => {
   const { getSettings } = useSettings();
@@ -96,6 +97,9 @@ const ProblemPage = () => {
 
   return (
     <>
+      <Head>
+        <title>Ralphs mattesida</title>
+      </Head>
       <RootLayout>
         <MathButtons onChange={onProblemTypesChange} />
         <div className={s.problemPage}>

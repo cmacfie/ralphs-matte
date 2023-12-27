@@ -12,9 +12,8 @@ $fontSize: #{$_size/ 2}px;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: 250ms ease;
+  transition: 150ms ease-in-out;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 1);
   border: $borderSize solid $light;
   box-shadow:
     #{-$s1} #{-$s1} $s2 rgba(255, 255, 255, 0.5),
@@ -22,6 +21,10 @@ $fontSize: #{$_size/ 2}px;
   font-size: $fontSize;
   line-height: $fontSize;
   position: relative;
+  background-size: 200% 200%;
+  background-position: center center;
+  background-image: radial-gradient(rgba($primaryLight, 0), rgba($primary, 0));
+  background-color: white;
   &::after {
     content: "";
     position: absolute;
@@ -32,14 +35,25 @@ $fontSize: #{$_size/ 2}px;
     height: 100%;
     box-shadow: 0 0 10px 15px #fff;
     border-radius: 50%;
-    background: green;
+    //background: white;
   }
   &.toggled {
-    color: $primary;
+    background-size: 100% 100%;
+    color: white;
+    background-image: radial-gradient(rgba($primaryLight, 1) 1px, $primary 25px);
+    animation: pulsate 1000ms ease infinite;
     box-shadow:
       #{-$s1} #{-$s1} $s2 rgba(255, 255, 255, 0.5),
       $s1 $s1 $s2 rgba(70, 70, 70, 0.12),
       inset #{-$s1} #{-$s1} $s2 rgba(255, 255, 255, 0.5),
       inset $s1 $s1 $s2 rgba(70, 70, 70, 0.12);
+  }
+}
+@keyframes pulsate {
+  0%, 100% {
+    background-size: 100% 100%;
+  }
+  50% {
+    background-size: 200% 200%;
   }
 }

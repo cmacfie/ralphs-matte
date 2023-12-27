@@ -16,10 +16,19 @@
     font-family: "Chalk";
   }
   .answerRow {
-    @media print {
-      border-bottom: 1px solid black;
-    }
+    height: 100%;
     width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: flex-end;
+    .answerRowInner {
+      width: 100%;
+      height: 2px;
+      background: white;
+      @media print {
+        background: black;
+      }
+    }
   }
 }
 .index {

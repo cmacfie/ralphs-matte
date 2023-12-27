@@ -1,6 +1,10 @@
 .printComponent {
   font-family: "Chalk";
   display: block;
+  &, * {
+    color: black !important;
+    opacity: 1;
+  }
   .page {
     display: block;
   }
@@ -21,9 +25,6 @@
         display: flex;
         flex-flow: row nowrap;
         .problemEntry {
-          &, * {
-            color: black;
-          }
           flex: 0 0 50%;
         }
       }
