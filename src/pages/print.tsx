@@ -3,6 +3,7 @@ import useMathGenerator from "@/hooks/use-math-generator";
 import { useEffect, useState } from "react";
 import { IMathProblem, ProblemType } from "@/interfaces";
 import PrintLayout from "@/layouts/print-layout";
+import { DIFFICULTY } from "@/hooks/use-settings";
 
 const PrintPage = () => {
   const [problems, setProblems] = useState<IMathProblem[]>([]);
@@ -10,6 +11,7 @@ const PrintPage = () => {
     additionRange: { min: 1, max: 25 },
     multiplicationRange: { min: 1, max: 10 },
     numberOfProblems: 20,
+    difficulty: DIFFICULTY.MIXED,
   });
 
   useEffect(() => {
