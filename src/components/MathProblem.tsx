@@ -3,6 +3,8 @@ import { IMathProblem, ProblemType } from "@/interfaces";
 import s from "@/styles/mathproblem.module.scss";
 import layout from "@/styles/layout.module.scss";
 import classNames from "classnames";
+import useMathGenerator from "@/hooks/use-math-generator";
+import {DIFFICULTY} from "@/hooks/use-settings";
 
 const MathProblem = ({
   className = "",
@@ -32,9 +34,25 @@ const MathProblem = ({
     }
   }, [problem]);
 
+  const difficultyClass = useMemo(() => {
+      switch (problem.difficulty) {
+          case DIFFICULTY.EASY:
+              return s.easy;
+          case DIFFICULTY.MEDIUM:
+              return s.medium;
+          case DIFFICULTY.HARD:
+              return s.hard;
+          case DIFFICULTY.VERY_HARD:
+              return s.veryhard;
+          case DIFFICULTY.MIXED:
+              return "";
+
+      }
+  }, [problem.difficulty])
+
   return (
     <div className={classNames(className, s.mathProblem)} key={key}>
-      <div className={classNames(s.index, inverted ? s.inverted : null)}>
+      <div className={classNames(s.index, inverted ? s.inverted : null, difficultyClass)}>
         <span>{`${index}`}</span>
       </div>
       <span>{problem.number1}</span>

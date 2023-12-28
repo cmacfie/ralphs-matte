@@ -43,6 +43,23 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  &.easy {
+    border-color: green;
+    background: green;
+  }
+  &.medium {
+    border-color: yellow;
+    background: yellow;
+    color: black;
+  }
+  &.hard {
+    border-color: orange;
+    background: orange;
+  }
+  &.veryhard {
+    border-color: red;
+    background: red;
+  }
   &.inverted {
     background: transparent;
     color: black;

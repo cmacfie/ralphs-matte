@@ -1,13 +1,14 @@
 import s from "@/styles/settings.module.scss";
 import RootLayout from "@/app/layout";
-import React, { useState } from "react";
-import useSettings, { ISettings } from "@/hooks/use-settings";
+import React, { useEffect, useState } from "react";
+import useSettings, { DIFFICULTY, ISettings } from "@/hooks/use-settings";
 import Input from "@/components/input";
 import NormalButton from "@/components/NormalButton";
 import layout from "@/styles/layout.module.scss";
 import { useRouter } from "next/router";
 import Icon, { Icons } from "@/components/Icon";
 import Head from "next/head";
+import ChoiceSlider from "@/components/ChoiceSlider";
 
 const SettingsPage = () => {
   const { getSettings, updateSettings } = useSettings();
@@ -28,10 +29,21 @@ const SettingsPage = () => {
     });
   };
 
+  const setDifficulty = (difficulty: DIFFICULTY) => {
+    setSettings((old) => ({
+      ...old,
+      difficulty,
+    }));
+  };
+
   const onSave = () => {
     updateSettings(settings);
     router.push("/");
   };
+
+  useEffect(() => {
+    console.log(settings);
+  }, [settings]);
 
   return (
     <>
@@ -62,34 +74,17 @@ const SettingsPage = () => {
                 </div>
               </div>
             </div>
-            <div className={s.inputColumn}>
-              <h2 className={s.header}>Addition / Subtraktion</h2>
-              <div className={s.inputRow}>
-                <div className={s.inputAndLabelWrapper}>
-                  <label>Minst</label>
-                  <div className={s.inputWrapper}>
-                    <Input
-                      value={settings.additionRange.min}
-                      type={"number"}
-                      onChange={(e) =>
-                        changeSettings(e.target.value, "additionRange", "min")
-                      }
-                    />
-                  </div>
-                </div>
-                <div className={s.inputAndLabelWrapper}>
-                  <label>Max</label>
-                  <div className={s.inputWrapper}>
-                    <Input
-                      value={settings.additionRange.max}
-                      type={"number"}
-                      onChange={(e) =>
-                        changeSettings(e.target.value, "additionRange", "max")
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
+            <div>
+              <ChoiceSlider
+                onChange={setDifficulty}
+                preSelected={settings.difficulty}
+                choices={[
+                  { display: "LÄTT", value: DIFFICULTY.EASY },
+                  { display: "MEDEL", value: DIFFICULTY.MEDIUM },
+                  { display: "SVÅRT", value: DIFFICULTY.HARD },
+                  { display: "JÄTTESVÅRT", value: DIFFICULTY.VERY_HARD },
+                ]}
+              />
             </div>
 
             <div className={s.inputColumn}>

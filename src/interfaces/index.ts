@@ -1,3 +1,4 @@
+import {DIFFICULTY} from "@/hooks/use-settings";
 
 export interface MinMax {
     min:number,
@@ -16,4 +17,5 @@ export interface IMathProblem {
     number2: number;
     answer: number;
     type: ProblemType
+    difficulty: DIFFICULTY
 }
