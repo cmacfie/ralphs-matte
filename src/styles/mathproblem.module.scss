@@ -44,21 +44,21 @@
   justify-content: center;
   align-items: center;
   &.easy {
-    border-color: green;
-    background: green;
+    border-color: #6aa84f;
+    background: #6aa84f;
   }
   &.medium {
-    border-color: yellow;
-    background: yellow;
+    border-color: #f1c232;
+    background: #f1c232;
     color: black;
   }
   &.hard {
-    border-color: orange;
-    background: orange;
+    border-color: #e69138;
+    background: #e69138;
   }
   &.veryhard {
-    border-color: red;
-    background: red;
+    border-color: #cc0000;
+    background: #cc0000;
   }
   &.inverted {
     background: transparent;

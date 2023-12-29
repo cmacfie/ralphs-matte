@@ -1,7 +1,9 @@
 import { ProblemType } from "@/interfaces";
 import {
   faArrowsRotate,
-  faDivide, faFloppyDisk, faLightbulb,
+  faDivide,
+  faFloppyDisk,
+  faLightbulb,
   faMinus,
   faPlus,
   faPrint,
@@ -11,8 +13,52 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { Icons } from "@/components/Icon";
 import { ToggledMathTypes } from "@/components/MathButtons";
+import { DIFFICULTY } from "@/hooks/use-settings";
 
 const useTypeConverter = () => {
+  const DifficultyToNumber = (difficulty: DIFFICULTY) => {
+    switch (difficulty) {
+      case DIFFICULTY.EASY:
+        return 1;
+      case DIFFICULTY.MEDIUM:
+        return 2;
+      case DIFFICULTY.HARD:
+        return 3;
+      case DIFFICULTY.VERY_HARD:
+        return 4;
+      case DIFFICULTY.MIXED:
+        return 5;
+    }
+  };
+
+  const DifficultyToString = (difficulty: string) => {
+    switch (difficulty as DIFFICULTY) {
+      case DIFFICULTY.EASY:
+        return "LÄTTA";
+      case DIFFICULTY.MEDIUM:
+        return "MEDEL";
+      case DIFFICULTY.HARD:
+        return "SVÅRA";
+      case DIFFICULTY.VERY_HARD:
+        return "JÄTTESVÅRA";
+      case DIFFICULTY.MIXED:
+        return "BLANDADE";
+    }
+  };
+
+  const MultiplicationValueToDifficulty = (n1: number, n2: number) => {
+    if (n1 === 1 || n2 === 1) {
+      return DIFFICULTY.EASY;
+    }
+    if (n1 < 3 || n2 < 3 || n1 === 10 || n2 === 10) {
+      return DIFFICULTY.MEDIUM;
+    }
+    if (n1 < 5 || n2 < 5) {
+      return DIFFICULTY.HARD;
+    }
+    return DIFFICULTY.VERY_HARD;
+  };
+
   const IconToDefinition = (icon: Icons): IconDefinition => {
     switch (icon) {
       case Icons.SUBTRACTION:
@@ -85,6 +131,9 @@ const useTypeConverter = () => {
     IconToIconName: IconToDefinition,
     MathProblemsToParams,
     ParamsToMathProblems,
+    DifficultyToNumber,
+    MultiplicationValueToDifficulty,
+    DifficultyToString,
   };
 };
 export default useTypeConverter;

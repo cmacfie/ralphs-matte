@@ -10,6 +10,11 @@
   box-shadow: $bs;
   outline: 10px solid $primary;
   margin: 16px;
+  @media only screen and (max-width: $ipadSize) {
+    margin: 4px;
+    outline-width: 8px;
+    padding: 8px;
+  }
   color: $light;
   &, *:not(button) {
     font-family: "Chalk";
@@ -26,12 +31,19 @@
         white-space: nowrap;
         font-size: 28px;
         text-align: center;
+        @media only screen and (max-width: $ipadSize) {
+          font-size: 18px;
+        }
       }
       .inputRow {
         display: flex;
         flex-flow: row nowrap;
         justify-content: space-around;
         gap: 16px;
+
+        @media only screen and (max-width: $ipadSize) {
+          gap: 8px;
+        }
         .inputAndLabelWrapper {
           font-size: 24px;
           display: flex;
@@ -39,6 +51,10 @@
           align-items: center;
           justify-content: flex-start;
           gap: 8px;
+          @media only screen and (max-width: $ipadSize) {
+            font-size: 16px;
+            gap: 4px;
+          }
         }
       }
     }

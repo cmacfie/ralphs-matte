@@ -1,5 +1,5 @@
 import { IMathProblem, ProblemType } from "@/interfaces";
-import useMathGenerator from "@/hooks/use-math-generator";
+import useMathGenerator, { IGroupedProblems } from "@/hooks/use-math-generator";
 import React, {
   useCallback,
   useEffect,
@@ -26,17 +26,26 @@ const ProblemPage = () => {
   const { getSettings } = useSettings();
   const router = useRouter();
   const ref = useRef<HTMLDivElement | null>(null);
-  const [problems, setProblems] = useState<IMathProblem[]>([]);
+  const [problems, setProblems] = useState<IGroupedProblems | null>(null);
   const [settings, setSettings] = useState<ISettings>(getSettings());
   const [activeProblemTypes, setActiveProblemTypes] = useState<ProblemType[]>([
     ProblemType.ADDITION,
   ]);
   const [printing, setPrinting] = useState(false);
 
-  const { generateArray } = useMathGenerator(settings);
+  const groupedAsArray = useMemo(() => {
+    if (problems) return Object.entries(problems);
+  }, [problems]);
+
+  const groupedAsFlattened = useMemo(() => {
+    return groupedAsArray?.flatMap(([header, array]) => array) ?? [];
+  }, [groupedAsArray]);
+
+  const { generateGrouped } = useMathGenerator(settings);
+  const { DifficultyToString } = useTypeConverter();
 
   useEffect(() => {
-    if (problems.length === 0) {
+    if (problems === null) {
       generateProblems();
     }
   }, []);
@@ -49,7 +58,7 @@ const ProblemPage = () => {
 
   const generateProblems = () => {
     setPrinting(false);
-    const generatedProblems = generateArray(
+    const generatedProblems = generateGrouped(
       activeProblemTypes,
       settings?.numberOfProblems,
     );
@@ -64,7 +73,7 @@ const ProblemPage = () => {
   });
 
   useEffect(() => {
-    if(printing && ref.current) {
+    if (printing && ref.current) {
       handlePrint();
     }
   }, [printing, ref.current]);
@@ -72,6 +81,7 @@ const ProblemPage = () => {
   const onProblemTypesChange = (types: ProblemType[]) => {
     setActiveProblemTypes(types);
   };
+  let i = 0;
 
   return (
     <>
@@ -81,15 +91,28 @@ const ProblemPage = () => {
       <RootLayout>
         <MathButtons onChange={onProblemTypesChange} />
         <div className={s.problemPage}>
-          <h1 className={s.header}>MATTETAL</h1>
           <div className={s.wrapper}>
-            {problems.map((problem, i) => (
-              <MathProblem
-                key={JSON.stringify(problem) + i}
-                problem={problem}
-                index={i + 1}
-              />
-            ))}
+            {groupedAsArray?.map(([header, problems]) => {
+              if(problems.length === 0) {
+                return null;
+              }
+              return (
+                <>
+                  <h2>{DifficultyToString(header)}</h2>
+                  {problems.map((problem) => {
+                    let index = i;
+                    i++;
+                    return (
+                      <MathProblem
+                        key={JSON.stringify(problem) + index}
+                        problem={problem}
+                        index={index + 1}
+                      />
+                    );
+                  })}
+                </>
+              );
+            })}
           </div>
         </div>
         <div className={s.bottomRow}>
@@ -108,7 +131,7 @@ const ProblemPage = () => {
           <NormalButton
             onClick={() => setPrinting(true)}
             leveled
-            disabled={problems.length === 0}
+            disabled={problems === null}
           >
             <Icon icon={Icons.PRINT} />
           </NormalButton>
@@ -116,7 +139,7 @@ const ProblemPage = () => {
       </RootLayout>
       {printing && (
         <div style={{ display: "none" }}>
-          <PrintComponent problems={problems} ref={ref} />
+          <PrintComponent problems={groupedAsFlattened} ref={ref} />
         </div>
       )}
     </>

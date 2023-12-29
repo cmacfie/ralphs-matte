@@ -14,13 +14,20 @@
   padding: 16px;
   overflow: hidden;
   box-shadow: $bs;
-  .header {
+  .header, h2 {
     font-family: "Chalk";
   }
   .wrapper {
     overflow: auto;
     column-count: 1;
     float: left;
+    width: 100%;
+    & > h2 {
+      width: 100%;
+      float: none;
+      text-align: center;
+      margin: 10px 0 20px;
+    }
     & > div {
       float: left;
       margin-bottom: 32px;

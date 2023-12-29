@@ -4,6 +4,7 @@ import useTypeConverter from "@/hooks/use-type-converter";
 import { DIFFICULTY, ISettings } from "@/hooks/use-settings";
 import useLocalStorage from "@/hooks/use-local-storage";
 import { useCallback } from "react";
+import MathProblem from "@/components/MathProblem";
 
 //Odds of getting a higher number
 const NORMAL_DIST_DEVIATION: {
@@ -12,7 +13,7 @@ const NORMAL_DIST_DEVIATION: {
   [DIFFICULTY.EASY]: [4, 3],
   [DIFFICULTY.MEDIUM]: [13, 3],
   [DIFFICULTY.HARD]: [25, 5],
-  [DIFFICULTY.VERY_HARD]: [40, 30],
+  [DIFFICULTY.VERY_HARD]: [40, 10],
 };
 
 const MIXED_DIFFICULTY_ODDS: {
@@ -24,12 +25,24 @@ const MIXED_DIFFICULTY_ODDS: {
   [DIFFICULTY.VERY_HARD]: 0.01,
 };
 
+export interface IGroupedProblems {
+  EASY: IMathProblem[];
+  MEDIUM: IMathProblem[];
+  HARD: IMathProblem[];
+  VERY_HARD: IMathProblem[];
+  [key: string]: IMathProblem[];
+}
+
 const useMathGenerator = ({
   multiplicationRange,
   additionRange,
-  difficulty = DIFFICULTY.MIXED,
+  difficulty: selectedDifficulty = DIFFICULTY.MIXED,
 }: ISettings) => {
-  const { StringToMathProblemType } = useTypeConverter();
+  const {
+    StringToMathProblemType,
+    DifficultyToNumber,
+    MultiplicationValueToDifficulty,
+  } = useTypeConverter();
   const { setItem, getItem } = useLocalStorage();
 
   const toProblemTypes = (problems: string[]) => {
@@ -85,9 +98,10 @@ const useMathGenerator = ({
     return Math.round(result);
   };
 
-  const createMultiplication = (difficulty: DIFFICULTY) => {
+  const createMultiplication = () => {
     let number1 = getRandomMultiplication();
     let number2 = getRandomMultiplication();
+    let difficulty = MultiplicationValueToDifficulty(number1, number2);
     const answer = number1 * number2;
     return {
       number1,
@@ -129,9 +143,10 @@ const useMathGenerator = ({
       type: ProblemType.SUBTRACTION,
     };
   };
-  const createDivision = (difficulty: DIFFICULTY) => {
+  const createDivision = () => {
     const answer = getRandomMultiplication();
     const number2 = getRandomMultiplication();
+    let difficulty = MultiplicationValueToDifficulty(answer, number2);
     return {
       number1: answer * number2,
       number2: number2,
@@ -142,8 +157,8 @@ const useMathGenerator = ({
   };
 
   const _createProblem = (type: ProblemType): IMathProblem => {
-    let currDifficulty = difficulty;
-    if (difficulty === DIFFICULTY.MIXED) {
+    let currDifficulty = selectedDifficulty;
+    if (selectedDifficulty === DIFFICULTY.MIXED) {
       currDifficulty = getMixedDifficulty();
     }
 
@@ -153,26 +168,57 @@ const useMathGenerator = ({
       case ProblemType.SUBTRACTION:
         return createSubtraction(currDifficulty);
       case ProblemType.MULTIPLICATION:
-        return createMultiplication(currDifficulty);
+        return createMultiplication();
       case ProblemType.DIVISION:
-        return createDivision(currDifficulty);
+        return createDivision();
     }
+  };
+
+  const sortByDifficulty = (a: IMathProblem, b: IMathProblem) => {
+    return DifficultyToNumber(a.difficulty) - DifficultyToNumber(b.difficulty);
   };
 
   const generateArray = useCallback(
     (types: (ProblemType | undefined)[], quantity: number) => {
-      const problems: IMathProblem[] = [];
+      let problems: IMathProblem[] = [];
       for (let i = 0; i < quantity; i++) {
         const type = types[random.integer(0, types.length - 1)];
         if (type !== undefined) {
           problems.push(_createProblem(type));
         }
       }
+      problems = problems.sort(sortByDifficulty);
       setItem("problems", JSON.stringify(problems));
       return problems;
     },
     [],
   );
+
+  const generateGrouped = (
+    types: (ProblemType | undefined)[],
+    quantity: number,
+  ): IGroupedProblems => {
+    let grouped: IGroupedProblems = {
+      EASY: [],
+      MEDIUM: [],
+      HARD: [],
+      VERY_HARD: [],
+    };
+    for (let i = 0; i < quantity; i++) {
+      const type = types[random.integer(0, types.length - 1)];
+      if (type !== undefined) {
+        const problem = _createProblem(type);
+        grouped = {
+          ...grouped,
+          [problem.difficulty]: [...grouped[problem.difficulty], problem].sort(
+            sortByDifficulty,
+          ),
+        };
+      }
+    }
+    setItem("groupedProblems", JSON.stringify(grouped));
+    return grouped;
+  };
 
   const getSavedProblems = (): IMathProblem[] => {
     const items = getItem("problems");
@@ -182,11 +228,7 @@ const useMathGenerator = ({
     return [];
   };
 
-  return {
-    generateArray,
-    toProblemTypes,
-    getSavedProblems,
-  };
+  return { generateGrouped, generateArray, toProblemTypes, getSavedProblems };
 };
 
 export default useMathGenerator;
