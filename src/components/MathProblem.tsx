@@ -62,10 +62,8 @@ const MathProblem = ({
   };
 
   useEffect(() => {
-    console.log("Value", value);
     if (value) {
       if (inputTimeout.current) {
-        console.log("Clear timeout");
         clearTimeout(inputTimeout.current);
       }
       inputTimeout.current = setTimeout(() => {
