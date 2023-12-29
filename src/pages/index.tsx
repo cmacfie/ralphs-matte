@@ -21,6 +21,7 @@ import { useRouter } from "next/router";
 import PrintComponent from "@/components/PrintComponent";
 import useTypeConverter from "@/hooks/use-type-converter";
 import Head from "next/head";
+import ChalkBoard from "@/components/ChalkBoard";
 
 const ProblemPage = () => {
   const { getSettings } = useSettings();
@@ -90,10 +91,10 @@ const ProblemPage = () => {
       </Head>
       <RootLayout>
         <MathButtons onChange={onProblemTypesChange} />
-        <div className={s.problemPage}>
+        <ChalkBoard className={s.problemPage}>
           <div className={s.wrapper}>
             {groupedAsArray?.map(([header, problems]) => {
-              if(problems.length === 0) {
+              if (problems.length === 0) {
                 return null;
               }
               return (
@@ -107,6 +108,7 @@ const ProblemPage = () => {
                         key={JSON.stringify(problem) + index}
                         problem={problem}
                         index={index + 1}
+                        hasInput={true}
                       />
                     );
                   })}
@@ -114,7 +116,7 @@ const ProblemPage = () => {
               );
             })}
           </div>
-        </div>
+        </ChalkBoard>
         <div className={s.bottomRow}>
           <NormalButton leveled onClick={() => router.push("/settings")}>
             <Icon icon={Icons.SETTINGS} />

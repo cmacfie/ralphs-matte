@@ -1,0 +1,17 @@
+@import "./variables.module.scss";
+
+.chalkBoard {
+  display: flex;
+  flex-flow: column nowrap;
+  align-items: center;
+  background-color: $dark;
+  background-image: url("/blackboard.png");
+  background-repeat:  no-repeat;
+  background-size: cover;
+  border-radius: 16px;
+  border: 10px solid $primary;
+  color: $light;
+  padding: 16px;
+  overflow: hidden;
+  box-shadow: $bs;
+}

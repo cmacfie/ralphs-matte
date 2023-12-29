@@ -1,6 +1,7 @@
 import { ProblemType } from "@/interfaces";
 import {
   faArrowsRotate,
+  faCircleCheck,
   faDivide,
   faFloppyDisk,
   faLightbulb,
@@ -79,6 +80,8 @@ const useTypeConverter = () => {
         return faLightbulb;
       case Icons.SAVE:
         return faFloppyDisk;
+      case Icons.CHECK:
+        return faCircleCheck;
     }
   };
 

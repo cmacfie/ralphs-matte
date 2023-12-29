@@ -2,15 +2,18 @@
 .mathProblem {
   font-size: 60px;
   display: grid;
-  grid-template-columns: repeat(6, 1fr);
+  grid-template-columns: repeat(5, 1fr) 20mm;
+  &.simple {
+    grid-template-columns: repeat(3, 1fr);
+  }
   @media print {
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 50mm;
   }
   align-items: center;
   justify-content: center;
-  gap: 16px;
+  gap: 8px;
   & > * {
-    width: 32px;
+    min-width: 20px;
     text-align: center;
     font-size: 30px;
     font-family: "Chalk";
@@ -19,12 +22,42 @@
     height: 100%;
     width: 100%;
     display: flex;
-    flex-flow: column nowrap;
-    justify-content: flex-end;
+    flex-flow: row nowrap;
+    justify-content: center;
+    align-items: center;
+    &.incorrect {
+      animation: horizontal-shaking 500ms ease-in-out ;
+      animation-iteration-count: 1;
+    }
+    .correct {
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: flex-start;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .incorrect {
+
+    }
+    input {
+      border: none;
+      background: transparent;
+      padding: 4px 8px;
+      margin: 0;
+      font-family: "Chalk";
+      border-bottom: 2px solid rgba(255, 255, 255, 0.5);
+      outline: none;
+      font-size: 20px;
+      color: white;
+      width: 20mm;
+      &:focus {
+        border-bottom: 2px solid rgba(255, 255, 255, 1);
+      }
+    }
     .answerRowInner {
       width: 100%;
       height: 2px;
-      background: white;
+      //background: white;
       @media print {
         background: black;
       }
@@ -71,4 +104,11 @@
     font-size: 12px;
     line-height: 12px;
   }
+}
+@keyframes horizontal-shaking {
+  0% { transform: translateX(0) }
+  25% { transform: translateX(5px) }
+  50% { transform: translateX(-5px) }
+  75% { transform: translateX(5px) }
+  100% { transform: translateX(0) }
 }

@@ -11,7 +11,8 @@ export enum Icons {
   SETTINGS = "SETTINGS",
   RELOAD = "RELOAD",
   IDEA = "IDEA",
-  SAVE = "SAVE"
+  SAVE = "SAVE",
+  CHECK = "CHECK",
 }
 const Icon = ({ icon }: { icon: Icons }) => {
   const { IconToIconName } = useTypeConverter();

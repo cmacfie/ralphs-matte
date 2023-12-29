@@ -1,0 +1,18 @@
+.correct {
+  position: absolute;
+  top: 150px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 100px;
+  animation: 1s scale cubic-bezier(.65,-0.4,0,1.35);
+}
+@keyframes scale {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
