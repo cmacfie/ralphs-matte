@@ -63,7 +63,7 @@ const PlayPage = () => {
       <div className={s.playPage}>
         <ChalkBoard>
           {problem && (
-            <MathProblem simple problem={problem} key={"play-page-problem"} />
+            <MathProblem problem={problem} key={"play-page-problem"} />
           )}
         </ChalkBoard>
         <ChalkBoard className={s.inputWrapper}>
