@@ -72,7 +72,7 @@ const MathProblem = ({
         } else {
           setIncorrect(true);
         }
-      }, 250);
+      }, 500);
     }
   }, [value]);
 
